@@ -3,10 +3,12 @@ import os
 from flask import Flask
 from flaskInvestingApp.config import Config
 from dotenv import load_dotenv
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 # Globally accessible libraries
-# db = SQLAlchemy()
+db = SQLAlchemy()
+migrate = Migrate()
 
 
 def create_app(config=Config):
@@ -20,7 +22,8 @@ def create_app(config=Config):
     load_dotenv(dotenv_path)
 
     # Initialize plugins
-    # db.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app)
 
     with app.app_context():
         # Import parts of our application
